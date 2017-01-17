@@ -9,7 +9,7 @@ public class Machine implements Comparable {
     private int machineId;
     private int avaliableTime;
     private int enterTime;
-    private int jobOnThisMach;
+    private Job jobOnThisMach;
     private int completeTime;
 
     public Machine(int machineId) {
@@ -24,11 +24,11 @@ public class Machine implements Comparable {
         this.completeTime = completeTime;
     }
 
-    public int getJobOnThisMach() {
+    public Job getJobOnThisMach() {
         return jobOnThisMach;
     }
 
-    public void setJobOnThisMach(int jobOnThisMach, int processTime) {
+    public void setJobOnThisMach(Job jobOnThisMach, int processTime) {
         this.jobOnThisMach = jobOnThisMach;
         this.completeTime = this.enterTime + processTime;
     }

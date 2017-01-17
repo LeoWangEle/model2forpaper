@@ -34,10 +34,10 @@ public class EventList {
         return event;
     }
 
-    public static boolean removeEventByJobId(int jobId) {
+    public static boolean removeEventByJobId(Job job) {
         while (iterator.hasNext()) {
             Event e = (Event) iterator.next();
-            if (e.getJobIDOfThisEvent() == jobId) {
+            if (e.getJobIDOfThisEvent() == job.getJobId()) {
                 iterator.remove();
                 Collections.sort(eventList);
                 return true; // 删除成功
@@ -55,6 +55,9 @@ public class EventList {
         Collections.sort(eventList);
     }
 
+    public static void sort() {
+        Collections.sort(eventList);
+    }
     @Override
     public String toString() {
         return "EventList{" +

@@ -29,15 +29,15 @@ public class MachineStage {
     }
 
     // 得到一个空闲的机器ID
-    public int getAvaliableMachineId() {
+    public Machine getAvaliableMachineId() {
         Iterator iterator = machines.iterator();
         while (iterator.hasNext()) {
             Machine machine = (Machine) iterator.next();
             if (machine.isAvaliable()) {
-                return machine.getMachineId();
+                return machine;
             }
         }
-        return -1;
+        return null;
     }
 
     // 将一个工件安排到某台机器上生产
@@ -47,24 +47,26 @@ public class MachineStage {
         MachineNum.setProcessMachineNum(machStageId, job.getJobId(), machineId);
         BegainTimeOnMach.setBegainTime(job.getJobId(), machStageId, begainTime);
         machines.get(machineId).setEnterTime(begainTime);
-        machines.get(machineId).setJobOnThisMach(job.getJobId(), processTime);
+        machines.get(machineId).setJobOnThisMach(job, processTime);
         EventList.updateEventList(begainTime,job,machStageId);
         Collections.sort(machines);
     }
 
     // 得到该阶段时最适合进入下一个阶段生产的工件
-    public int getOneJobNeededToPro() {
+    public Job getOneJobNeededToPro() {
         for (int i = 0; i < machineNums; i++) {
             if (!machines.get(i).isAvaliable()) {
                 machines.get(i).setAvaliable(true);
-                return machines.get(i).getMachineId();
+                return machines.get(i).getJobOnThisMach();
             }
         }
-        return -1;
+        return null;
     }
 
     // 将某台机器设置为阻塞状态
     public void setBlocked(Machine machine) {
-
+        machine.setAvaliable(false);
+        machine.setBlock(true);
+        EventList.removeEventByJobId(machine.getJobOnThisMach());
     }
 }
