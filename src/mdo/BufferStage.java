@@ -4,7 +4,6 @@ import datarecord.BegainTimeOnBuff;
 import datarecord.BufferNum;
 import models.Buffer;
 import models.Job;
-
 import java.util.*;
 
 /**
@@ -41,15 +40,15 @@ public class BufferStage {
     }
 
     // 将一个工件放入到空闲的缓冲区中
-    public void assignAjob(Job job, Buffer buff, int begainTime) {
-        Buffer buffer = buffers.get(buff.getBufferId());
+    public void assignAjob(Job job, int bufferId, int begainTime) {
+        Buffer buffer = buffers.get(bufferId);
         buffer.setTaken(true);
         BufferNum.setBufferNumbers(this.bufferStageId, job.getJobId(), buffer.getBufferId());
         BegainTimeOnBuff.setBegainTime(job.getJobId(), bufferStageId, begainTime);
         buffers.get(buffer.getBufferId()).setEnterTime(begainTime);
         buffers.get(buffer.getBufferId()).setJobInBuffer(job);
         Collections.sort(buffers);
-        EventList.removeEventByJobId(job.getJobId());
+        EventList.removeEventByJobId(job);
 
     }
 
@@ -62,5 +61,37 @@ public class BufferStage {
             }
         }
         return null;
+    }
+
+    public int getBufferStageId() {
+        return bufferStageId;
+    }
+
+    public void setBufferStageId(int bufferStageId) {
+        this.bufferStageId = bufferStageId;
+    }
+
+    public int getBufferNums() {
+        return bufferNums;
+    }
+
+    public void setBufferNums(int bufferNums) {
+        this.bufferNums = bufferNums;
+    }
+
+    public List<Buffer> getBuffers() {
+        return buffers;
+    }
+
+    public void setBuffers(List<Buffer> buffers) {
+        this.buffers = buffers;
+    }
+
+    public int[] getLastJobOnThisStage() {
+        return lastJobOnThisStage;
+    }
+
+    public void setLastJobOnThisStage(int[] lastJobOnThisStage) {
+        this.lastJobOnThisStage = lastJobOnThisStage;
     }
 }

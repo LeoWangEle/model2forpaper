@@ -69,4 +69,36 @@ public class MachineStage {
         machine.setBlock(true);
         EventList.removeEventByJobId(machine.getJobOnThisMach());
     }
+
+    public int getMachStageId() {
+        return machStageId;
+    }
+
+    public void setMachStageId(int machStageId) {
+        this.machStageId = machStageId;
+    }
+
+    public int getMachineNums() {
+        return machineNums;
+    }
+
+    public void setMachineNums(int machineNums) {
+        this.machineNums = machineNums;
+    }
+
+    public List<Machine> getMachines() {
+        return machines;
+    }
+
+    public void setMachines(List<Machine> machines) {
+        this.machines = machines;
+    }
+
+    public int[] getLastJobOnThisStage() {
+        return lastJobOnThisStage;
+    }
+
+    public void setLastJobOnThisStage(int[] lastJobOnThisStage) {
+        this.lastJobOnThisStage = lastJobOnThisStage;
+    }
 }

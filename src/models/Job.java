@@ -5,9 +5,9 @@ package models;
  */
 public class Job {
     private  int jobId;
-    private int processTime;
+    private int[] processTime;
 
-    public Job(int jobId, int processTime) {
+    public Job(int jobId, int[] processTime) {
         this.jobId = jobId;
         this.processTime = processTime;
     }
@@ -20,12 +20,8 @@ public class Job {
         this.jobId = jobId;
     }
 
-    public int getProcessTime() {
-        return processTime;
-    }
-
-    public void setProcessTime(int processTime) {
-        this.processTime = processTime;
+    public int getProcessTime(int stage) {
+        return processTime[stage];
     }
 
     @Override

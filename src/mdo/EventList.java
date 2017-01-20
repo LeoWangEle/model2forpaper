@@ -48,7 +48,7 @@ public class EventList {
     }
 
     public static void updateEventList(int beginTime,Job thisJob, int stage) {
-        Event event = new Event(beginTime + thisJob.getProcessTime(),stage,thisJob.getJobId());
+        Event event = new Event(beginTime + thisJob.getProcessTime(stage),stage,thisJob.getJobId());
         event.setJobIDOfThisEvent(thisJob.getJobId());
         event.setStageIDOfThisEvent(stage);
         addEvent(event);
