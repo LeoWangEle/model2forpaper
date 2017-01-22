@@ -174,4 +174,5 @@ public class MainClass {
         begainTimeOnMach = new BegainTimeOnMach(jobNums, stageNums);
         eventList = new EventList();
     }
+
 }
