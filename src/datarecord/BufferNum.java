@@ -10,15 +10,16 @@ package datarecord;
 public class BufferNum {
 
     private int stageNumbers;
-    private int bufferNumbers;
+    private int jobNumbers;
     private static int[][] numbers;
 
-    public BufferNum(int stageNumbers,int bufferNumbers){
-        this.bufferNumbers = bufferNumbers;
+    public BufferNum(int stageNumbers,int jobNumbers){
+        this.jobNumbers = jobNumbers;
         this.stageNumbers = stageNumbers;
-        numbers = new int[bufferNumbers][stageNumbers];
+        numbers = new int[jobNumbers][stageNumbers];
     }
 
+    /* 记录工件在此 stage 中是在哪个缓冲区暂存的 */
     public static void setBufferNumbers(int stage, int job, int bufferNum){
         numbers[job][stage] = bufferNum;
     }

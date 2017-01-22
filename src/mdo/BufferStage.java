@@ -27,26 +27,35 @@ public class BufferStage {
         Arrays.fill(lastJobOnThisStage, -1);
     }
 
-    // 得到一个可供利用的缓冲区 ID
-    public int getAvaliableBufferId() {
+    // 得到一个可供利用的缓冲区
+    public Buffer getAvaliableBuffer() {
         Iterator iterator = buffers.iterator();
+        Buffer buffer = null;
         while (iterator.hasNext()) {
-            Buffer buffer = (Buffer) iterator.next();
+            buffer = (Buffer) iterator.next();
             if (!buffer.isTaken()) {
-                return buffer.getBufferId();
+                return buffer;
             }
         }
-        return -1;
+        return null;
     }
 
     // 将一个工件放入到空闲的缓冲区中
     public void assignAjob(Job job, int bufferId, int begainTime) {
-        Buffer buffer = buffers.get(bufferId);
+        Buffer buffer = null;
+        /* 根据 bufferId 找到对应的 buffer */
+        Iterator iterator = buffers.iterator();
+        while (iterator.hasNext()) {
+            buffer = (Buffer) iterator.next();
+            if (buffer.getBufferId() == bufferId) {
+                break;
+            }
+        }
         buffer.setTaken(true);
         BufferNum.setBufferNumbers(this.bufferStageId, job.getJobId(), buffer.getBufferId());
         BegainTimeOnBuff.setBegainTime(job.getJobId(), bufferStageId, begainTime);
-        buffers.get(buffer.getBufferId()).setEnterTime(begainTime);
-        buffers.get(buffer.getBufferId()).setJobInBuffer(job);
+        buffer.setEnterTime(begainTime);
+        buffer.setJobInBuffer(job);
         Collections.sort(buffers);
         EventList.removeEventByJobId(job);
 
